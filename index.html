@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nexoflow | Inteligencia Artificial & Automatización para Empresas</title>
-    <meta name="description" content="Transformamos empresas con IA, automatizaciones y agentes virtuales. Consultoría tech de élite.">
+    <title>nexoflow | Inteligencia Artificial & Automatización</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
     <div class="bg-gradient"></div>
-    <div class="bg-grid"></div>
-    
     <nav class="nav">
         <div class="nav-container">
             <a href="#" class="logo">
@@ -23,239 +22,50 @@
                 <span class="logo-text">nexoflow</span>
             </a>
             <div class="nav-links">
+                <a href="#ia" class="nav-link">IA</a>
                 <a href="#servicios" class="nav-link">Servicios</a>
-                <a href="#proceso" class="nav-link">Proceso</a>
                 <a href="#contacto" class="nav-link nav-cta">Contactar</a>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                Consultora Tech de Élite
-            </div>
-            <h1 class="hero-title">
-                Transforma tu empresa con
-                <span class="gradient-text">Inteligencia Artificial</span>
-            </h1>
-            <p class="hero-subtitle">
-                Automatizaciones inteligentes, agentes virtuales y consultoría IA que multiplican 
-                la productividad de tu equipo. El futuro de tu negocio empieza hoy.
-            </p>
-            <div class="hero-cta">
-                <a href="#contacto" class="btn btn-primary">
-                    <span>Empezar Transformación</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </a>
-                <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">10x</span>
-                    <span class="stat-label">Más Productividad</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Empresas Transformadas</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Agentes Virtuales</span>
+    <!-- HERO SECTION WITH 3D BRAIN -->
+    <section class="hero-3d">
+        <!-- Three.js Canvas Container -->
+        <div id="brainContainer"></div>
+        
+        <!-- UI Overlay -->
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">INTELIGENCIA</span>
+                    <span class="title-line gradient-text">ARTIFICIAL</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Transformamos empresas mediante la aplicación estratégica 
+                    de tecnología e inteligencia artificial. Soluciones a medida 
+                    para la era digital.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-white">
+                        DESCUBRE NUESTROS SERVICIOS
+                    </a>
+                    
+                    <a href="https://wa.me/34678685555?text=Estoy%20en%20tu%20web%20de%20Nexoflow%20y%20quiero%20más%20información" target="_blank" class="btn btn-outline">
+                        CONTÁCTANOS
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-hint">
+            <div class="mouse-3d">
+                <div class="wheel-3d"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- SCROLL-CONTROLLED BRAIN SECTION -->
-    <section class="brain-scroll-section">
-        <div class="brain-scroll-container">
-            <!-- Left: Text content -->
-            <div class="brain-text-content">
-                <div class="text-panel panel-1">
-                    <span class="panel-tag">Fase 1: Desconexión</span>
-                    <h2 class="panel-title">
-                        Las neuronas <span class="gradient-text">dispersas</span>
-                    </h2>
-                    <p class="panel-desc">
-                        Sin IA, tu empresa opera con datos desconectados. 
-                        Cada departamento es una isla, sin comunicación eficiente.
-                    </p>
-                </div>
-                
-                <div class="text-panel panel-2">
-                    <span class="panel-tag">Fase 2: Conexión</span>
-                    <h2 class="panel-title">
-                        Sinapsis <span class="gradient-text">artificial</span>
-                    </h2>
-                    <p class="panel-desc">
-                        Las primeras conexiones se establecen. 
-                        Los flujos de información empiezan a comunicarse.
-                    </p>
-                </div>
-                
-                <div class="text-panel panel-3">
-                    <span class="panel-tag">Fase 3: Inteligencia</span>
-                    <h2 class="panel-title">
-                        Red <span class="gradient-text">consciente</span>
-                    </h2>
-                    <p class="panel-desc">
-                        Tu empresa ahora piensa. La IA procesa, aprende 
-                        y toma decisiones en tiempo real.
-                    </p>
-                </div>
-                
-                <div class="scroll-progress">
-                    <div class="progress-bar"></div>
-                    <span class="progress-percent">0%</span>
-                </div>
-            </div>
-            
-            <!-- Right: Scroll-controlled brain visual -->
-            <div class="brain-visual-container">
-                <div class="brain-wrapper">
-                    <!-- Layer 1: Background nodes (farthest) -->
-                    <div class="brain-layer layer-bg">
-                        <svg viewBox="0 0 500 500">
-                            <circle class="bg-node" cx="100" cy="100" r="3" fill="#6366f1" opacity="0.3"/>
-                            <circle class="bg-node" cx="400" cy="80" r="4" fill="#a855f7" opacity="0.3"/>
-                            <circle class="bg-node" cx="420" cy="350" r="3" fill="#3b82f6" opacity="0.3"/>
-                            <circle class="bg-node" cx="80" cy="380" r="4" fill="#f472b6" opacity="0.3"/>
-                            <circle class="bg-node" cx="250" cy="50" r="2" fill="#6366f1" opacity="0.3"/>
-                            <circle class="bg-node" cx="50" cy="200" r="3" fill="#a855f7" opacity="0.3"/>
-                            <circle class="bg-node" cx="450" cy="200" r="2" fill="#3b82f6" opacity="0.3"/>
-                            <circle class="bg-node" cx="250" cy="450" r="3" fill="#f472b6" opacity="0.3"/>
-                        </svg>
-                    </div>
-                    
-                    
-                    <!-- Layer 2: Connection lines (middle) -->
-                    <div class="brain-layer layer-connections">
-                        <svg viewBox="0 0 500 500">
-                            <path class="conn-line" d="M150 150 Q250 200 350 150" stroke="url(#grad1)" stroke-width="1" fill="none" opacity="0"/>
-                            
-                            <path class="conn-line" d="M150 350 Q250 300 350 350" stroke="url(#grad1)" stroke-width="1" fill="none" opacity="0"/>
-                            
-                            <path class="conn-line" d="M150 150 Q200 250 150 350" stroke="url(#grad2)" stroke-width="1" fill="none" opacity="0"/>
-                            
-                            <path class="conn-line" d="M350 150 Q300 250 350 350" stroke="url(#grad2)" stroke-width="1" fill="none" opacity="0"/>
-                            
-                            <path class="conn-line" d="M250 100 Q250 250 250 400" stroke="url(#grad3)" stroke-width="1.5" fill="none" opacity="0"/>
-                            
-                            <path class="conn-line" d="M200 200 Q250 220 300 200" stroke="url(#grad1)" stroke-width="0.5" fill="none" opacity="0"/>
-                            
-                            <path class="conn-line" d="M200 300 Q250 280 300 300" stroke="url(#grad2)" stroke-width="0.5" fill="none" opacity="0"/>
-                            
-                            <defs>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.6" />
-                                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.6" />
-                                </linearGradient>
-                                
-                                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.6" />
-                                    <stop offset="100%" style="stop-color:#f472b6;stop-opacity:0.6" />
-                                </linearGradient>
-                                
-                                <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
-                                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.8" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    
-                    
-                    <!-- Layer 3: Main brain structure (closest) -->
-                    <div class="brain-layer layer-main">
-                        <svg viewBox="0 0 500 500">
-                            <!-- Left hemisphere -->
-                            <path class="brain-hemisphere left" 
-                                d="M120 180 C120 120 160 80 220 80 C240 80 250 85 250 100 L250 400 C230 400 220 395 200 390 C140 370 100 320 100 260 C100 220 110 200 120 180Z" 
-                                fill="none" 
-                                stroke="#a855f7" 
-                                stroke-width="2"
-                                stroke-dasharray="1000"
-                                stroke-dashoffset="1000" />
-                            
-                            
-                            <!-- Right hemisphere -->
-                            <path class="brain-hemisphere right" 
-                                d="M380 180 C380 120 340 80 280 80 C260 80 250 85 250 100 L250 400 C270 400 280 395 300 390 C360 370 400 320 400 260 C400 220 390 200 380 180Z" 
-                                fill="none" 
-                                stroke="#6366f1" 
-                                stroke-width="2"
-                                stroke-dasharray="1000"
-                                stroke-dashoffset="1000" />
-                            
-                            
-                            <!-- Inner details -->
-                            <path class="brain-detail d1" d="M140 180 Q180 200 180 250" stroke="#a855f7" stroke-width="1" fill="none" opacity="0" />
-                            
-                            <path class="brain-detail d2" d="M360 180 Q320 200 320 250" stroke="#6366f1" stroke-width="1" fill="none" opacity="0" />
-                            
-                            <path class="brain-detail d3" d="M150 280 Q200 300 250 290" stroke="#f472b6" stroke-width="1" fill="none" opacity="0" />
-                            
-                            <path class="brain-detail d4" d="M350 280 Q300 300 250 290" stroke="#3b82f6" stroke-width="1" fill="none" opacity="0" />
-                            
-                            
-                            <!-- Core -->
-                            <circle class="brain-core" cx="250" cy="250" r="30" fill="url(#coreGrad)" opacity="0" />
-                            
-                            <circle class="brain-core-inner" cx="250" cy="250" r="15" fill="#fff" opacity="0" />
-                            
-                            
-                            <defs>
-                                <radialGradient id="coreGrad" cx="50%" cy="50%">
-                                    <stop offset="0%" style="stop-color:#f472b6;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0" />
-                                </radialGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    
-                    
-                    <!-- Layer 4: Active neurons (animated on scroll) -->
-                    <div class="brain-layer layer-active">
-                        <svg viewBox="0 0 500 500">
-                            <circle class="active-node n1" cx="180" cy="150" r="5" fill="#a855f7" opacity="0"/>
-                            
-                            <circle class="active-node n2" cx="320" cy="150" r="5" fill="#6366f1" opacity="0"/>
-                            
-                            <circle class="active-node n3" cx="150" cy="250" r="5" fill="#f472b6" opacity="0"/>
-                            
-                            <circle class="active-node n4" cx="350" cy="250" r="5" fill="#3b82f6" opacity="0"/>
-                            
-                            <circle class="active-node n5" cx="180" cy="350" r="5" fill="#a855f7" opacity="0"/>
-                            
-                            <circle class="active-node n6" cx="320" cy="350" r="5" fill="#6366f1" opacity="0"/>
-                            
-                            <circle class="active-node n7" cx="250" cy="180" r="4" fill="#f472b6" opacity="0"/>
-                            
-                            <circle class="active-node n8" cx="250" cy="320" r="4" fill="#3b82f6" opacity="0"/>
-                            
-                            <circle class="active-node n9" cx="220" cy="220" r="3" fill="#a855f7" opacity="0"/>
-                            
-                            <circle class="active-node n10" cx="280" cy="220" r="3" fill="#6366f1" opacity="0"/>
-                            
-                            <circle class="active-node n11" cx="220" cy="280" r="3" fill="#f472b6" opacity="0"/>
-                            
-                            <circle class="active-node n12" cx="280" cy="280" r="3" fill="#3b82f6" opacity="0"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+            <span>Scroll para explorar</span>
         </div>
     </section>
 
@@ -274,18 +84,18 @@
                         </svg>
                     </div>
                     <h3 class="service-title">Consultoría IA</h3>
-                    <p class="service-desc">Estrategia personalizada para integrar IA en tus procesos.</p>
+                    <p class="service-desc">Estrategia personalizada para integrar IA en tus procesos de negocio.</p>
                 </div>
 
                 <div class="service-card featured">
-                    <div class="service-badge">Más Popular</div>
+                    <div class="service-badge">Popular</div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                     </div>
                     <h3 class="service-title">Automatizaciones</h3>
-                    <p class="service-desc">Flujos de trabajo que eliminan tareas repetitivas.</p>
+                    <p class="service-desc">Flujos de trabajo inteligentes que eliminan tareas repetitivas.</p>
                 </div>
 
                 <div class="service-card">
@@ -293,23 +103,22 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                             <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
                         </svg>
                     </div>
                     <h3 class="service-title">Agentes Virtuales</h3>
-                    <p class="service-desc">Empleados digitales que trabajan 24/7.</p>
+                    <p class="service-desc">Empleados digitales que trabajan 24/7 para tu empresa.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="contacto" class="cta">
-        <div class="cta-bg"></div>
         <div class="container">
             <div class="cta-content">
                 <h2 class="cta-title">¿Listo para el <span class="gradient-text">futuro</span>?</h2>
                 <a href="https://wa.me/34678685555?text=Estoy%20en%20tu%20web%20de%20Nexoflow%20y%20quiero%20más%20información" target="_blank" class="btn btn-cta">
-                    Agendar Consulta
+                    Agendar Consulta Gratis
                 </a>
             </div>
         </div>
