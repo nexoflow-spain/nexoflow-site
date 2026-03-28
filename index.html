@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
     <!-- Background Effects -->
@@ -33,19 +36,19 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-badge scroll-reveal">
+            <div class="hero-badge">
                 <span class="badge-dot"></span>
                 Consultora Tech de Élite
             </div>
-            <h1 class="hero-title scroll-reveal">
+            <h1 class="hero-title">
                 Transforma tu empresa con
                 <span class="gradient-text">Inteligencia Artificial</span>
             </h1>
-            <p class="hero-subtitle scroll-reveal">
+            <p class="hero-subtitle">
                 Automatizaciones inteligentes, agentes virtuales y consultoría IA que multiplican 
                 la productividad de tu equipo. El futuro de tu negocio empieza hoy.
             </p>
-            <div class="hero-cta scroll-reveal">
+            <div class="hero-cta">
                 <a href="#contacto" class="btn btn-primary">
                     <span>Empezar Transformación</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -54,7 +57,7 @@
                 </a>
                 <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
             </div>
-            <div class="hero-stats scroll-reveal">
+            <div class="hero-stats">
                 <div class="stat">
                     <span class="stat-number">10x</span>
                     <span class="stat-label">Más Productividad</span>
@@ -78,123 +81,52 @@
         </div>
     </section>
 
-    <!-- Brain Assembly Section -->
-    <section class="brain-section">
-        <div class="brain-container">
-            <div class="brain-text scroll-reveal">
-                <span class="section-tag">La Tecnología</span>
-                <h2 class="brain-title">
-                    Inteligencia que 
-                    <span class="gradient-text">evoluciona</span>
+    <!-- Neural Network Section - PROFESSIONAL -->
+    <section class="neural-section">
+        <div class="neural-container">
+            <div class="neural-text">
+                <span class="neural-tag">Sinapsis Artificial</span>
+                <h2 class="neural-title">
+                    Redes neuronales que 
+                    <span class="gradient-text">piensan</span>
                 </h2>
-                <p class="brain-desc">
-                    Cada neurona artificial se conecta para crear soluciones 
-                    que piensan, aprenden y actúan por ti.
+                <p class="neural-desc">
+                    Cada conexión representa una decisión inteligente. 
+                    Miles de neuronas artificiales procesando información 
+                    en tiempo real para tu negocio.
                 </p>
+                <div class="neural-stats">
+                    <div class="n-stat">
+                        <span class="n-number" data-target="10000">0</span>+
+                        <span class="n-label">Neuronas</span>
+                    </div>
+                    <div class="n-stat">
+                        <span class="n-number" data-target="99.9">0</span>%
+                        <span class="n-label">Precisión</span>
+                    </div>
+                    <div class="n-stat">
+                        <span class="n-number" data-target="0.001">0</span>s
+                        <span class="n-label">Latencia</span>
+                    </div>
+                </div>
             </div>
             
-            <div class="brain-visual">
-                <!-- Neural Network Background -->
-                <div class="neural-bg">
-                    <div class="neuron n1"></div>
-                    <div class="neuron n2"></div>
-                    <div class="neuron n3"></div>
-                    <div class="neuron n4"></div>
-                    <div class="neuron n5"></div>
-                    <div class="neuron n6"></div>
-                    <div class="synapse s1"></div>
-                    <div class="synapse s2"></div>
-                    <div class="synapse s3"></div>
-                    <div class="synapse s4"></div>
-                    <div class="synapse s5"></div>
-                </div>
-                
-                <!-- Brain SVG -->
-                <svg class="brain-svg" viewBox="0 0 400 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="brainGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="brainGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="brainGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#f472b6;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#f472b6;stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                            <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    
-                    <!-- Brain Left Hemisphere - Part 1 -->
-                    <path class="brain-part bp1" d="M120 180C120 140 140 100 180 85C200 77 220 80 235 90C245 96 250 105 252 115C254 125 252 135 248 145C244 155 238 163 230 170C222 177 212 182 200 185C188 188 175 188 162 186C149 184 135 180 120 180Z" stroke="url(#brainGrad1)" stroke-width="2" fill="none"/>
-                    
-                    <!-- Brain Left Hemisphere - Part 2 -->
-                    <path class="brain-part bp2" d="M115 190C100 200 85 215 78 235C71 255 72 280 82 300C92 320 110 335 130 342C150 349 172 348 190 340C208 332 222 318 230 300C238 282 240 262 236 244C232 226 222 210 208 200C194 190 178 185 160 185C142 185 126 186 115 190Z" stroke="url(#brainGrad1)" stroke-width="2" fill="none"/>
-                    
-                    <!-- Brain Right Hemisphere - Part 3 -->
-                    <path class="brain-part bp3" d="M280 180C295 175 310 178 325 188C340 198 350 215 355 235C360 255 358 278 350 298C342 318 328 333 310 342C292 351 272 354 255 350C238 346 225 338 215 325C205 312 200 296 202 280C204 264 212 248 225 235C238 222 255 212 272 205C275 196 278 188 280 180Z" stroke="url(#brainGrad2)" stroke-width="2" fill="none"/>
-                    
-                    <!-- Brain Right Hemisphere - Part 4 -->
-                    <path class="brain-part bp4" d="M248 145C260 140 275 140 288 148C301 156 312 170 318 188C324 206 325 226 320 244C315 262 305 278 292 288C279 298 264 302 250 300C236 298 224 290 215 278C206 266 202 250 205 235C208 220 218 205 232 195C238 178 242 161 248 145Z" stroke="url(#brainGrad2)" stroke-width="2" fill="none"/>
-                    
-                    <!-- Brain Top - Part 5 -->
-                    <path class="brain-part bp5" d="M200 50C180 52 162 60 148 75C134 90 126 110 125 130C124 150 130 170 142 185C154 200 172 208 190 210C208 212 226 208 240 198C254 188 264 173 268 155C272 137 270 118 262 100C254 82 240 68 222 60C215 56 208 53 200 50Z" stroke="url(#brainGrad3)" stroke-width="2" fill="none"/>
-                    
-                    <!-- Inner Neural Connections -->
-                    <path class="brain-inner bi1" d="M160 140 Q180 130 200 145 Q220 160 240 145" stroke="url(#brainGrad1)" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    
-                    <path class="brain-inner bi2" d="M150 200 Q170 220 200 210 Q230 200 250 220" stroke="url(#brainGrad2)" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    
-                    <path class="brain-inner bi3" d="M180 250 Q200 270 220 250" stroke="url(#brainGrad3)" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    
-                    <path class="brain-inner bi4" d="M200 100 Q200 150 200 180" stroke="url(#coreGrad)" stroke-width="2" fill="none" opacity="0.8"/>
-                    
-                    <!-- Central Core -->
-                    <circle class="brain-core" cx="200" cy="200" r="25" stroke="url(#coreGrad)" stroke-width="3" fill="none" filter="url(#glow)"/>
-                    
-                    <circle class="brain-core-inner" cx="200" cy="200" r="12" fill="url(#coreGrad)" filter="url(#glow)"/>
-                    
-                    <!-- Data Flow Points -->
-                    <circle class="data-point dp1" cx="160" cy="140" r="4" fill="#a855f7" opacity="0"/>
-                    <circle class="data-point dp2" cx="240" cy="140" r="4" fill="#3b82f6" opacity="0"/>
-                    <circle class="data-point dp3" cx="150" cy="240" r="4" fill="#f472b6" opacity="0"/>
-                    <circle class="data-point dp4" cx="250" cy="240" r="4" fill="#06b6d4" opacity="0"/>
-                    
-                    <circle class="data-point dp5" cx="200" cy="100" r="4" fill="#a855f7" opacity="0"/>
-                </svg>
-                
-                <!-- Assembly Progress Indicator -->
-                <div class="assembly-progress">
-                    <div class="progress-ring">
-                        <svg viewBox="0 0 100 100">
-                            <circle class="progress-bg" cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.1)" stroke-width="3" fill="none"/>
-                            <circle class="progress-fill" cx="50" cy="50" r="45" stroke="url(#brainGrad1)" stroke-width="3" fill="none" stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-                        </svg>
-                        <span class="progress-text">0%</span>
-                    </div>
-                    <p class="progress-label">Ensamblaje Neural</p>
+            <div class="neural-visual">
+                <canvas id="neuralCanvas"></canvas>
+                <div class="neural-overlay">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring delay-1"></div>
+                    <div class="pulse-ring delay-2"></div>
                 </div>
             </div>
         </div>
+        <div class="neural-gradient"></div>
     </section>
 
     <!-- Services Section -->
     <section id="servicios" class="services">
         <div class="container">
-            <div class="section-header scroll-reveal">
+            <div class="section-header">
                 <span class="section-tag">Nuestros Servicios</span>
                 <h2 class="section-title">Soluciones que <span class="gradient-text">revolucionan</span></h2>
                 <p class="section-subtitle">
@@ -203,7 +135,7 @@
             </div>
             
             <div class="services-grid">
-                <div class="service-card scroll-reveal">
+                <div class="service-card">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -215,12 +147,12 @@
                     </p>
                     <ul class="service-features">
                         <li>Auditoría de procesos</li>
-                        <li> roadmap de transformación digital</li>
+                        <li>Roadmap de transformación digital</li>
                         <li>Selección de herramientas IA</li>
                     </ul>
                 </div>
 
-                <div class="service-card scroll-reveal featured">
+                <div class="service-card featured">
                     <div class="service-badge">Más Popular</div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -238,7 +170,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card scroll-reveal">
+                <div class="service-card">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -263,13 +195,13 @@
     <!-- Process Section -->
     <section id="proceso" class="process">
         <div class="container">
-            <div class="section-header scroll-reveal">
+            <div class="section-header">
                 <span class="section-tag">Cómo Trabajamos</span>
                 <h2 class="section-title">De la idea a la <span class="gradient-text">realidad</span></h2>
             </div>
             
             <div class="process-steps">
-                <div class="step scroll-reveal">
+                <div class="step">
                     <div class="step-number">01</div>
                     <div class="step-content">
                         <h3>Descubrimiento</h3>
@@ -277,7 +209,7 @@
                     </div>
                 </div>
                 <div class="step-arrow">→</div>
-                <div class="step scroll-reveal">
+                <div class="step">
                     <div class="step-number">02</div>
                     <div class="step-content">
                         <h3>Diseño</h3>
@@ -285,7 +217,7 @@
                     </div>
                 </div>
                 <div class="step-arrow">→</div>
-                <div class="step scroll-reveal">
+                <div class="step">
                     <div class="step-number">03</div>
                     <div class="step-content">
                         <h3>Implementación</h3>
@@ -293,7 +225,7 @@
                     </div>
                 </div>
                 <div class="step-arrow">→</div>
-                <div class="step scroll-reveal">
+                <div class="step">
                     <div class="step-number">04</div>
                     <div class="step-content">
                         <h3>Evolución</h3>
@@ -308,7 +240,7 @@
     <section id="contacto" class="cta">
         <div class="cta-bg"></div>
         <div class="container">
-            <div class="cta-content scroll-reveal">
+            <div class="cta-content">
                 <h2 class="cta-title">¿Listo para el <span class="gradient-text">futuro</span>?</h2>
                 <p class="cta-text">
                     Agenda una consulta gratuita y descubre cómo la IA puede transformar tu empresa.

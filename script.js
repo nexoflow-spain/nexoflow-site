@@ -1,402 +1,505 @@
 // ============================
-// NEXOFLOW - Interactive Scripts
-// Scroll animations + Effects
+// NEXOFLOW - Professional Neural Network Animation
+// GSAP + Canvas - Industry Standard
 // ============================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements
-    const nav = document.querySelector('.nav');
-    const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
-    const navLinks = document.querySelectorAll('.nav-link');
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
     
     // ============================
     // Navigation Scroll Effect
     // ============================
-    let lastScroll = 0;
+    const nav = document.querySelector('.nav');
     
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+    ScrollTrigger.create({
+        start: 'top -80',
+        end: 99999,
+        toggleClass: { className: 'scrolled', targets: nav }
+    });
+    
+    // ============================
+    // Hero Animations
+    // ============================
+    const heroElements = [
+        '.hero-badge',
+        '.hero-title', 
+        '.hero-subtitle',
+        '.hero-cta',
+        '.hero-stats'
+    ];
+    
+    heroElements.forEach((el, i) => {
+        const element = document.querySelector(el);
+        if (element) {
+            gsap.fromTo(element, 
+                { opacity: 0, y: 40 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.8,
+                    delay: i * 0.12,
+                    ease: 'power3.out',
+                    onStart: () => element.classList.add('visible')
+                }
+            );
+        }
+    });
+    
+    // ============================
+    // PROFESSIONAL NEURAL NETWORK
+    // ============================
+    const canvas = document.getElementById('neuralCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    if (canvas) {
+        let width, height;
+        let particles = [];
+        let connections = [];
+        let animationId;
+        let isVisible = false;
+        let scrollProgress = 0;
         
-        // Add/remove scrolled class for nav background
-        if (currentScroll > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
+        // Configuration
+        const config = {
+            particleCount: 60,
+            connectionDistance: 120,
+            particleSpeed: 0.3,
+            particleRadius: { min: 2, max: 5 },
+            colors: [
+                { r: 168, g: 85, b: 247 },   // Purple
+                { r: 99, g: 102, b: 241 },   // Indigo
+                { r: 59, g: 130, b: 246 },   // Blue
+                { r: 244, g: 114, b: 182 }   // Pink
+            ]
+        };
+        
+        // Resize canvas
+        function resize() {
+            const container = canvas.parentElement;
+            width = container.offsetWidth;
+            height = container.offsetHeight;
+            canvas.width = width * window.devicePixelRatio;
+            canvas.height = height * window.devicePixelRatio;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
         }
         
-        lastScroll = currentScroll;
-    }, { passive: true });
-    
-    // ============================
-    // Scroll Reveal Animation
-    // ============================
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                // Add delay based on element's position in parent
-                const parent = entry.target.parentElement;
-                if (parent) {
-                    const siblings = Array.from(parent.children);
-                    const elementIndex = siblings.indexOf(entry.target);
-                    entry.target.style.transitionDelay = `${elementIndex * 0.1}s`;
+        resize();
+        window.addEventListener('resize', resize, { passive: true });
+        
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.reset();
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+            }
+            
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * config.particleSpeed;
+                this.vy = (Math.random() - 0.5) * config.particleSpeed;
+                this.radius = config.particleRadius.min + Math.random() * (config.particleRadius.max - config.particleRadius.min);
+                this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
+                this.alpha = 0;
+                this.targetAlpha = 0.6 + Math.random() * 0.4;
+                this.pulsePhase = Math.random() * Math.PI * 2;
+                this.pulseSpeed = 0.02 + Math.random() * 0.02;
+            }
+            
+            update() {
+                // Movement
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+                
+                // Keep in bounds
+                this.x = Math.max(0, Math.min(width, this.x));
+                this.y = Math.max(0, Math.min(height, this.y));
+                
+                // Pulse effect
+                this.pulsePhase += this.pulseSpeed;
+                
+                // Fade in on scroll
+                if (isVisible && this.alpha < this.targetAlpha) {
+                    this.alpha += 0.02;
+                }
+            }
+            
+            draw() {
+                const pulse = 1 + Math.sin(this.pulsePhase) * 0.2;
+                const radius = this.radius * pulse;
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
+                ctx.fill();
+                
+                // Glow effect
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, radius * 2, 0, Math.PI * 2);
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, radius * 3
+                );
+                gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha * 0.5})`);
+                gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+            }
+        }
+        
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        initParticles();
+        
+        // Draw connections between nearby particles
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < config.connectionDistance) {
+                        const opacity = (1 - distance / config.connectionDistance) * p1.alpha * p2.alpha * 0.5;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        // Data flow effect
+        let dataFlows = [];
+        
+        function createDataFlow() {
+            if (Math.random() > 0.95 && isVisible) {
+                const p1 = particles[Math.floor(Math.random() * particles.length)];
+                const p2 = particles[Math.floor(Math.random() * particles.length)];
+                
+                if (p1 !== p2) {
+                    const dx = p2.x - p1.x;
+                    const dy = p2.y - p1.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < config.connectionDistance * 1.5) {
+                        dataFlows.push({
+                            x: p1.x,
+                            y: p1.y,
+                            targetX: p2.x,
+                            targetY: p2.y,
+                            progress: 0,
+                            speed: 0.03 + Math.random() * 0.02
+                        });
+                    }
+                }
+            }
+        }
+        
+        function updateDataFlows() {
+            createDataFlow();
+            
+            dataFlows = dataFlows.filter(flow => {
+                flow.progress += flow.speed;
+                
+                if (flow.progress >= 1) {
+                    return false;
                 }
                 
-                entry.target.classList.add('revealed');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-    
-    scrollRevealElements.forEach(el => {
-        revealObserver.observe(el);
-    });
-    
-    // ============================
-    // Smooth Scroll for Nav Links
-    // ============================
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const navHeight = nav.offsetHeight;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-    
-    // ============================
-    // Parallax Effect for Background
-    // ============================
-    const bgGradient = document.querySelector('.bg-gradient');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        if (bgGradient) {
-            bgGradient.style.transform = `translateY(${scrolled * 0.3}px)`;
+                const x = flow.x + (flow.targetX - flow.x) * flow.progress;
+                const y = flow.y + (flow.targetY - flow.y) * flow.progress;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(6, 182, 212, ${1 - flow.progress})`;
+                ctx.fill();
+                
+                // Trail
+                ctx.beginPath();
+                ctx.arc(x - (flow.targetX - flow.x) * 0.1, y - (flow.targetY - flow.y) * 0.1, 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(6, 182, 212, ${(1 - flow.progress) * 0.5})`;
+                ctx.fill();
+                
+                return true;
+            });
         }
-    }, { passive: true });
-    
-    // ============================
-    // Service Card Hover Tilt Effect
-    // ============================
-    const serviceCards = document.querySelectorAll('.service-card');
-    
-    serviceCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+        
+        // Central brain node
+        let brainPulse = 0;
+        
+        function drawBrainCenter() {
+            const centerX = width / 2;
+            const centerY = height / 2;
             
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            brainPulse += 0.03;
+            const pulseSize = 1 + Math.sin(brainPulse) * 0.15;
             
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
+            // Outer glow
+            const gradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, 80 * pulseSize
+            );
+            gradient.addColorStop(0, 'rgba(168, 85, 247, 0.4)');
+            gradient.addColorStop(0.5, 'rgba(99, 102, 241, 0.2)');
+            gradient.addColorStop(1, 'rgba(168, 85, 247, 0)');
             
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 80 * pulseSize, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Core
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 20 * pulseSize, 0, Math.PI * 2);
+            const coreGradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, 20 * pulseSize
+            );
+            coreGradient.addColorStop(0, '#f472b6');
+            coreGradient.addColorStop(0.5, '#a855f7');
+            coreGradient.addColorStop(1, '#6366f1');
+            ctx.fillStyle = coreGradient;
+            ctx.fill();
+            
+            // Connect center to nearby particles
+            particles.forEach(p => {
+                const dx = p.x - centerX;
+                const dy = p.y - centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 150) {
+                    const opacity = (1 - distance / 150) * p.alpha * 0.8;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY);
+                    ctx.lineTo(p.x, p.y);
+                    ctx.strokeStyle = `rgba(244, 114, 182, ${opacity})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            });
+        }
+        
+        // Animation loop
+        let frameCount = 0;
+        
+        function animate() {
+            if (!isVisible) {
+                animationId = requestAnimationFrame(animate);
+                return;
+            }
+            
+            // Clear with trail effect
+            ctx.fillStyle = 'rgba(10, 10, 15, 0.15)';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Optimize: only draw connections every 2nd frame
+            if (frameCount % 2 === 0) {
+                drawConnections();
+            }
+            
+            // Update and draw particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            // Data flows
+            updateDataFlows();
+            
+            // Brain center
+            drawBrainCenter();
+            
+            frameCount++;
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Visibility detection with ScrollTrigger
+        ScrollTrigger.create({
+            trigger: '.neural-section',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            onEnter: () => { isVisible = true; },
+            onLeave: () => { isVisible = false; },
+            onEnterBack: () => { isVisible = true; },
+            onLeaveBack: () => { isVisible = false; }
         });
         
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        // Text animations
+        gsap.fromTo('.neural-text', 
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.neural-section',
+                    start: 'top 70%'
+                }
+            }
+        );
+        
+        // Counter animation for stats
+        const counters = document.querySelectorAll('.n-number');
+        counters.forEach(counter => {
+            const target = parseFloat(counter.dataset.target);
+            const isDecimal = target % 1 !== 0;
+            
+            ScrollTrigger.create({
+                trigger: counter,
+                start: 'top 85%',
+                onEnter: () => {
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2,
+                        ease: 'power2.out',
+                        snap: { innerHTML: isDecimal ? 0.1 : 1 },
+                        onUpdate: function() {
+                            const val = parseFloat(counter.innerHTML);
+                            counter.innerHTML = isDecimal ? val.toFixed(target < 1 ? 3 : 1) : Math.floor(val);
+                        }
+                    });
+                },
+                once: true
+            });
         });
+    }
+    
+    // ============================
+    // Services Section Animations
+    // ============================
+    gsap.fromTo('.section-header',
+        { opacity: 0, y: 30 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.services',
+                start: 'top 75%'
+            },
+            onStart: () => document.querySelector('.section-header')?.classList.add('visible')
+        }
+    );
+    
+    gsap.utils.toArray('.service-card').forEach((card, i) => {
+        gsap.fromTo(card,
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                delay: i * 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%'
+                },
+                onStart: () => card.classList.add('visible')
+            }
+        );
     });
+    
+    // ============================
+    // Process Section Animations
+    // ============================
+    gsap.utils.toArray('.step').forEach((step, i) => {
+        gsap.fromTo(step,
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                delay: i * 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: step,
+                    start: 'top 85%'
+                },
+                onStart: () => step.classList.add('visible')
+            }
+        );
+    });
+    
+    // ============================
+    // CTA Section Animation
+    // ============================
+    gsap.fromTo('.cta-content',
+        { opacity: 0, y: 30 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.cta',
+                start: 'top 75%'
+            },
+            onStart: () => document.querySelector('.cta-content')?.classList.add('visible')
+        }
+    );
     
     // ============================
     // Magnetic Button Effect
     // ============================
-    const magneticButtons = document.querySelectorAll('.btn-primary, .btn-cta');
+    const magneticBtns = document.querySelectorAll('.btn-primary, .btn-cta');
     
-    magneticButtons.forEach(btn => {
+    magneticBtns.forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
             
-            btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            gsap.to(btn, {
+                x: x * 0.2,
+                y: y * 0.2,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
         });
         
         btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0)';
+            gsap.to(btn, {
+                x: 0,
+                y: 0,
+                duration: 0.5,
+                ease: 'elastic.out(1, 0.5)'
+            });
         });
     });
-    
-    // ============================
-    // Step Number Counter Animation
-    // ============================
-    const stepNumbers = document.querySelectorAll('.step-number');
-    
-    const numberObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'none';
-                entry.target.offsetHeight; // Trigger reflow
-                entry.target.style.animation = 'numberPulse 0.6s var(--ease-out-expo)';
-                numberObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    stepNumbers.forEach(num => numberObserver.observe(num));
-    
-    // ============================
-    // Stat Number Animation
-    // ============================
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    const statObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-                
-                // Check if it's a number or text
-                if (!isNaN(parseInt(text))) {
-                    // It's a number, animate it
-                    const finalNumber = parseInt(text);
-                    const suffix = text.replace(/[0-9]/g, '');
-                    let current = 0;
-                    const increment = finalNumber / 30;
-                    const duration = 1000;
-                    const stepTime = duration / 30;
-                    
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= finalNumber) {
-                            target.textContent = finalNumber + suffix;
-                            clearInterval(timer);
-                        } else {
-                            target.textContent = Math.floor(current) + suffix;
-                        }
-                    }, stepTime);
-                }
-                
-                statObserver.unobserve(target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    statNumbers.forEach(stat => statObserver.observe(stat));
-    
-    // ============================
-    // Text Scramble Effect for Hero Title
-    // ============================
-    class TextScramble {
-        constructor(el) {
-            this.el = el;
-            this.chars = '!<>-_\\/[]{}—=+*^?#________';
-            this.update = this.update.bind(this);
-        }
-        
-        setText(newText) {
-            const oldText = this.el.innerText;
-            const length = Math.max(oldText.length, newText.length);
-            const promise = new Promise((resolve) => this.resolve = resolve);
-            this.queue = [];
-            
-            for (let i = 0; i < length; i++) {
-                const from = oldText[i] || '';
-                const to = newText[i] || '';
-                const start = Math.floor(Math.random() * 40);
-                const end = start + Math.floor(Math.random() * 40);
-                this.queue.push({ from, to, start, end });
-            }
-            
-            cancelAnimationFrame(this.frameRequest);
-            this.frame = 0;
-            this.update();
-            return promise;
-        }
-        
-        update() {
-            let output = '';
-            let complete = 0;
-            
-            for (let i = 0, n = this.queue.length; i < n; i++) {
-                let { from, to, start, end, char } = this.queue[i];
-                
-                if (this.frame >= end) {
-                    complete++;
-                    output += to;
-                } else if (this.frame >= start) {
-                    if (!char || Math.random() < 0.28) {
-                        char = this.randomChar();
-                        this.queue[i].char = char;
-                    }
-                    output += `<span class="scramble-char">${char}</span>`;
-                } else {
-                    output += from;
-                }
-            }
-            
-            this.el.innerHTML = output;
-            
-            if (complete === this.queue.length) {
-                this.resolve();
-            } else {
-                this.frameRequest = requestAnimationFrame(this.update);
-                this.frame++;
-            }
-        }
-        
-        randomChar() {
-            return this.chars[Math.floor(Math.random() * this.chars.length)];
-        }
-    }
-    
-    // Apply scramble effect to subtitle
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    if (heroSubtitle) {
-        const originalText = heroSubtitle.textContent;
-        const fx = new TextScramble(heroSubtitle);
-        
-        setTimeout(() => {
-            fx.setText(originalText);
-        }, 1000);
-    }
-    
-    // ============================
-    // Brain Assembly Animation
-    // ============================
-    const brainSection = document.querySelector('.brain-section');
-    const brainParts = document.querySelectorAll('.brain-part');
-    const brainInners = document.querySelectorAll('.brain-inner');
-    const brainCore = document.querySelector('.brain-core');
-    const brainCoreInner = document.querySelector('.brain-core-inner');
-    const dataPoints = document.querySelectorAll('.data-point');
-    const progressFill = document.querySelector('.progress-fill');
-    const progressText = document.querySelector('.progress-text');
-    
-    if (brainSection && brainParts.length > 0) {
-        let assemblyProgress = 0;
-        const totalParts = brainParts.length + brainInners.length + 1; // +1 for core
-        
-        const brainObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    startBrainAssembly();
-                    brainObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        brainObserver.observe(brainSection);
-        
-        function startBrainAssembly() {
-            // Animate brain parts sequentially
-            brainParts.forEach((part, index) => {
-                setTimeout(() => {
-                    part.classList.add('assembled');
-                    updateProgress();
-                    
-                    // Add fill effect after stroke animation
-                    setTimeout(() => {
-                        part.style.fillOpacity = '0.1';
-                    }, 800);
-                }, index * 400);
-            });
-            
-            // Animate inner connections
-            setTimeout(() => {
-                brainInners.forEach((inner, index) => {
-                    setTimeout(() => {
-                        inner.classList.add('connected');
-                        updateProgress();
-                    }, index * 200);
-                });
-            }, brainParts.length * 400 + 200);
-            
-            // Activate core
-            setTimeout(() => {
-                if (brainCore) brainCore.classList.add('active');
-                if (brainCoreInner) brainCoreInner.classList.add('active');
-                updateProgress();
-            }, brainParts.length * 400 + brainInners.length * 200 + 400);
-            
-            // Activate data points
-            setTimeout(() => {
-                dataPoints.forEach((point, index) => {
-                    setTimeout(() => {
-                        point.classList.add('active');
-                    }, index * 300);
-                });
-            }, brainParts.length * 400 + 1000);
-        }
-        
-        function updateProgress() {
-            assemblyProgress++;
-            const percentage = Math.min(100, Math.round((assemblyProgress / totalParts) * 100));
-            
-            if (progressText) {
-                progressText.textContent = percentage + '%';
-            }
-            
-            if (progressFill) {
-                const circumference = 2 * Math.PI * 45; // r=45
-                const offset = circumference - (percentage / 100) * circumference;
-                progressFill.style.strokeDashoffset = offset;
-            }
-        }
-        
-        // Parallax effect for brain on scroll
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const rect = brainSection.getBoundingClientRect();
-                    const scrollProgress = 1 - (rect.bottom / (window.innerHeight + rect.height));
-                    
-                    if (scrollProgress > 0 && scrollProgress < 1) {
-                        const brainSvg = document.querySelector('.brain-svg');
-                        if (brainSvg) {
-                            const rotation = (scrollProgress - 0.5) * 10;
-                            const scale = 1 + scrollProgress * 0.05;
-                            brainSvg.style.transform = `perspective(1000px) rotateY(${rotation}deg) scale(${scale})`;
-                        }
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }, { passive: true });
-    }
     
     // ============================
     // Console Easter Egg
     // ============================
     console.log(
-        '%c⚡ nexoflow %c| Transformando empresas con IA',
+        '%c⚡ nexoflow %c| Neural Network Visualization Active',
         'background: linear-gradient(135deg, #a855f7, #3b82f6); color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;',
         'color: #a855f7; font-weight: 500;'
     );
-    console.log('%c¿Interesado en trabajar con nosotros? hola@nexoflow.ai', 'color: #666;');
+    console.log('%cPowered by GSAP + Canvas | 60 particles | Real-time connections', 'color: #666;');
 });
-
-// ============================
-// CSS Animation Keyframes Injection
-// ============================
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes numberPulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-    
-    .scramble-char {
-        color: #a855f7;
-        font-weight: 600;
-    }
-`;
-document.head.appendChild(style);

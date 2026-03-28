@@ -1,6 +1,6 @@
 /* ============================
-   NEXOFLOW - Modern Landing Page
-   Dark Mode + Glassmorphism + Animations
+   NEXOFLOW - Professional Landing Page
+   GSAP + Canvas Neural Network
    ============================ */
 
 :root {
@@ -191,6 +191,14 @@ body {
     font-weight: 500;
     color: var(--color-text-muted);
     margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.hero-badge.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo);
 }
 
 .badge-dot {
@@ -213,6 +221,14 @@ body {
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo) 0.1s;
 }
 
 .gradient-text {
@@ -228,6 +244,14 @@ body {
     max-width: 600px;
     margin: 0 auto 2.5rem;
     line-height: 1.7;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-subtitle.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo) 0.2s;
 }
 
 .hero-cta {
@@ -236,6 +260,14 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo) 0.3s;
 }
 
 .btn {
@@ -281,6 +313,14 @@ body {
     align-items: center;
     gap: 2rem;
     flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-stats.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo) 0.4s;
 }
 
 .stat {
@@ -341,6 +381,154 @@ body {
 }
 
 /* ============================
+   Neural Network Section - PRO
+   ============================ */
+.neural-section {
+    min-height: 100vh;
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.neural-gradient {
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse 60% 40% at 70% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 30% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.neural-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.neural-text {
+    padding-right: 2rem;
+}
+
+.neural-tag {
+    display: inline-block;
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #a855f7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.neural-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.neural-desc {
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.neural-stats {
+    display: flex;
+    gap: 3rem;
+}
+
+.n-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.n-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.n-label {
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    margin-top: 0.25rem;
+}
+
+/* Neural Visual - Canvas Container */
+.neural-visual {
+    position: relative;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#neuralCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.neural-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 50%;
+    animation: pulseRing 3s ease-out infinite;
+}
+
+.pulse-ring.delay-1 {
+    animation-delay: 1s;
+}
+
+.pulse-ring.delay-2 {
+    animation-delay: 2s;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* ============================
    Section Commons
    ============================ */
 .container {
@@ -357,6 +545,14 @@ section {
     text-align: center;
     max-width: 600px;
     margin: 0 auto 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.section-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo);
 }
 
 .section-tag {
@@ -387,320 +583,6 @@ section {
 }
 
 /* ============================
-   Brain Assembly Section
-   ============================ */
-.brain-section {
-    padding: 6rem 0;
-    position: relative;
-    overflow: hidden;
-    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
-}
-
-.brain-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.brain-text {
-    padding-right: 2rem;
-}
-
-.brain-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-
-.brain-desc {
-    color: var(--color-text-muted);
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.brain-visual {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Neural Background Animation */
-.neural-bg {
-    position: absolute;
-    inset: -50px;
-    z-index: 0;
-}
-
-.neuron {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: var(--gradient-primary);
-    border-radius: 50%;
-    opacity: 0;
-    animation: neuronPulse 3s ease-in-out infinite;
-}
-
-.neuron.n1 { top: 20%; left: 10%; animation-delay: 0s; }
-.neuron.n2 { top: 30%; right: 15%; animation-delay: 0.5s; }
-.neuron.n3 { bottom: 25%; left: 20%; animation-delay: 1s; }
-.neuron.n4 { bottom: 35%; right: 10%; animation-delay: 1.5s; }
-.neuron.n5 { top: 50%; left: 5%; animation-delay: 2s; }
-.neuron.n6 { top: 60%; right: 5%; animation-delay: 2.5s; }
-
-@keyframes neuronPulse {
-    0%, 100% { 
-        opacity: 0; 
-        transform: scale(0.5);
-        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4);
-    }
-    50% { 
-        opacity: 1; 
-        transform: scale(1);
-        box-shadow: 0 0 20px 10px rgba(168, 85, 247, 0.2);
-    }
-}
-
-.synapse {
-    position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
-    opacity: 0;
-    animation: synapseFlow 4s ease-in-out infinite;
-}
-
-.synapse.s1 { 
-    width: 100px; 
-    top: 25%; 
-    left: 15%; 
-    transform: rotate(25deg);
-    animation-delay: 0.3s;
-}
-.synapse.s2 { 
-    width: 120px; 
-    top: 40%; 
-    right: 20%; 
-    transform: rotate(-15deg);
-    animation-delay: 0.8s;
-}
-.synapse.s3 { 
-    width: 80px; 
-    bottom: 30%; 
-    left: 25%; 
-    transform: rotate(45deg);
-    animation-delay: 1.3s;
-}
-.synapse.s4 { 
-    width: 140px; 
-    bottom: 40%; 
-    right: 15%; 
-    transform: rotate(-30deg);
-    animation-delay: 1.8s;
-}
-.synapse.s5 { 
-    width: 90px; 
-    top: 55%; 
-    left: 10%; 
-    transform: rotate(60deg);
-    animation-delay: 2.3s;
-}
-
-@keyframes synapseFlow {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 0.6; }
-}
-
-/* Brain SVG Styles */
-.brain-svg {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.3));
-}
-
-.brain-part {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    transition: all 0.8s var(--ease-out-expo);
-}
-
-.brain-part.assembled {
-    stroke-dashoffset: 0;
-    filter: drop-shadow(0 0 10px currentColor);
-}
-
-.brain-part.filled {
-    fill: rgba(168, 85, 247, 0.05);
-    fill-opacity: 0;
-    transition: fill-opacity 0.5s ease;
-}
-
-.brain-part.filled.assembled {
-    fill-opacity: 1;
-}
-
-.brain-inner {
-    stroke-dasharray: 200;
-    stroke-dashoffset: 200;
-    transition: stroke-dashoffset 0.6s var(--ease-out-expo);
-}
-
-.brain-inner.connected {
-    stroke-dashoffset: 0;
-}
-
-.brain-core {
-    transform-origin: center;
-    transform: scale(0);
-    opacity: 0;
-    transition: all 0.6s var(--ease-out-expo);
-}
-
-.brain-core.active {
-    transform: scale(1);
-    opacity: 1;
-    animation: corePulse 2s ease-in-out infinite;
-}
-
-@keyframes corePulse {
-    0%, 100% { 
-        filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
-        stroke-width: 3;
-    }
-    50% { 
-        filter: drop-shadow(0 0 25px rgba(168, 85, 247, 1));
-        stroke-width: 4;
-    }
-}
-
-.brain-core-inner {
-    transform-origin: center;
-    transform: scale(0);
-    opacity: 0;
-    transition: all 0.4s var(--ease-out-expo) 0.2s;
-}
-
-.brain-core-inner.active {
-    transform: scale(1);
-    opacity: 0.9;
-    animation: innerGlow 2s ease-in-out infinite;
-}
-
-@keyframes innerGlow {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-}
-
-.data-point {
-    transition: all 0.4s var(--ease-out-expo);
-}
-
-.data-point.active {
-    opacity: 1;
-    animation: dataPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes dataPulse {
-    0%, 100% { 
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% { 
-        transform: scale(1.5);
-        opacity: 0.7;
-    }
-}
-
-/* Assembly Progress */
-.assembly-progress {
-    position: absolute;
-    bottom: -20px;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    z-index: 2;
-}
-
-.progress-ring {
-    position: relative;
-    width: 80px;
-    height: 80px;
-}
-
-.progress-ring svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
-}
-
-.progress-fill {
-    transition: stroke-dashoffset 0.3s ease;
-}
-
-.progress-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.progress-label {
-    font-size: 0.75rem;
-    color: var(--color-text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-/* Responsive Brain Section */
-@media (max-width: 768px) {
-    .brain-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .brain-text {
-        text-align: center;
-        padding-right: 0;
-        order: 2;
-    }
-    
-    .brain-visual {
-        order: 1;
-    }
-    
-    .assembly-progress {
-        position: relative;
-        bottom: auto;
-        right: auto;
-        margin-top: 1rem;
-    }
-    
-    .brain-svg {
-        max-width: 280px;
-    }
-}
-
-/* ============================
    Services Section
    ============================ */
 .services {
@@ -721,6 +603,13 @@ section {
     position: relative;
     overflow: hidden;
     transition: all 0.4s var(--ease-out-expo);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .service-card::before {
@@ -836,6 +725,13 @@ section {
     min-width: 200px;
     max-width: 250px;
     text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.step.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .step-number {
@@ -868,12 +764,6 @@ section {
     color: var(--color-text-dim);
     opacity: 0.5;
     margin-top: 2rem;
-    animation: arrowBounce 2s ease-in-out infinite;
-}
-
-@keyframes arrowBounce {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
 }
 
 /* ============================
@@ -903,6 +793,14 @@ section {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.cta-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s var(--ease-out-expo);
 }
 
 .cta-title {
@@ -999,26 +897,29 @@ section {
 }
 
 /* ============================
-   Scroll Animations
-   ============================ */
-.scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s var(--ease-out-expo);
-}
-
-.scroll-reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.scroll-reveal.delay-1 { transition-delay: 0.1s; }
-.scroll-reveal.delay-2 { transition-delay: 0.2s; }
-.scroll-reveal.delay-3 { transition-delay: 0.3s; }
-
-/* ============================
    Responsive
    ============================ */
+@media (max-width: 1024px) {
+    .neural-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .neural-text {
+        text-align: center;
+        padding-right: 0;
+    }
+    
+    .neural-stats {
+        justify-content: center;
+    }
+    
+    .neural-visual {
+        height: 400px;
+        order: -1;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -1061,6 +962,11 @@ section {
     .step-arrow {
         transform: rotate(90deg);
         margin: 0;
+    }
+    
+    .neural-stats {
+        flex-direction: column;
+        gap: 1.5rem;
     }
     
     .footer-content {
