@@ -9,16 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
-    <!-- Background Effects -->
     <div class="bg-gradient"></div>
     <div class="bg-grid"></div>
     
-    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="#" class="logo">
@@ -33,7 +30,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
             <div class="hero-badge">
@@ -81,57 +77,193 @@
         </div>
     </section>
 
-    <!-- Neural Network Section - PROFESSIONAL -->
-    <section class="neural-section">
-        <div class="neural-container">
-            <div class="neural-text">
-                <span class="neural-tag">Sinapsis Artificial</span>
-                <h2 class="neural-title">
-                    Redes neuronales que 
-                    <span class="gradient-text">piensan</span>
-                </h2>
-                <p class="neural-desc">
-                    Cada conexión representa una decisión inteligente. 
-                    Miles de neuronas artificiales procesando información 
-                    en tiempo real para tu negocio.
-                </p>
-                <div class="neural-stats">
-                    <div class="n-stat">
-                        <span class="n-number" data-target="10000">0</span>+
-                        <span class="n-label">Neuronas</span>
-                    </div>
-                    <div class="n-stat">
-                        <span class="n-number" data-target="99.9">0</span>%
-                        <span class="n-label">Precisión</span>
-                    </div>
-                    <div class="n-stat">
-                        <span class="n-number" data-target="0.001">0</span>s
-                        <span class="n-label">Latencia</span>
-                    </div>
+    <!-- SCROLL-CONTROLLED BRAIN SECTION -->
+    <section class="brain-scroll-section">
+        <div class="brain-scroll-container">
+            <!-- Left: Text content -->
+            <div class="brain-text-content">
+                <div class="text-panel panel-1">
+                    <span class="panel-tag">Fase 1: Desconexión</span>
+                    <h2 class="panel-title">
+                        Las neuronas <span class="gradient-text">dispersas</span>
+                    </h2>
+                    <p class="panel-desc">
+                        Sin IA, tu empresa opera con datos desconectados. 
+                        Cada departamento es una isla, sin comunicación eficiente.
+                    </p>
+                </div>
+                
+                <div class="text-panel panel-2">
+                    <span class="panel-tag">Fase 2: Conexión</span>
+                    <h2 class="panel-title">
+                        Sinapsis <span class="gradient-text">artificial</span>
+                    </h2>
+                    <p class="panel-desc">
+                        Las primeras conexiones se establecen. 
+                        Los flujos de información empiezan a comunicarse.
+                    </p>
+                </div>
+                
+                <div class="text-panel panel-3">
+                    <span class="panel-tag">Fase 3: Inteligencia</span>
+                    <h2 class="panel-title">
+                        Red <span class="gradient-text">consciente</span>
+                    </h2>
+                    <p class="panel-desc">
+                        Tu empresa ahora piensa. La IA procesa, aprende 
+                        y toma decisiones en tiempo real.
+                    </p>
+                </div>
+                
+                <div class="scroll-progress">
+                    <div class="progress-bar"></div>
+                    <span class="progress-percent">0%</span>
                 </div>
             </div>
             
-            <div class="neural-visual">
-                <canvas id="neuralCanvas"></canvas>
-                <div class="neural-overlay">
-                    <div class="pulse-ring"></div>
-                    <div class="pulse-ring delay-1"></div>
-                    <div class="pulse-ring delay-2"></div>
+            <!-- Right: Scroll-controlled brain visual -->
+            <div class="brain-visual-container">
+                <div class="brain-wrapper">
+                    <!-- Layer 1: Background nodes (farthest) -->
+                    <div class="brain-layer layer-bg">
+                        <svg viewBox="0 0 500 500">
+                            <circle class="bg-node" cx="100" cy="100" r="3" fill="#6366f1" opacity="0.3"/>
+                            <circle class="bg-node" cx="400" cy="80" r="4" fill="#a855f7" opacity="0.3"/>
+                            <circle class="bg-node" cx="420" cy="350" r="3" fill="#3b82f6" opacity="0.3"/>
+                            <circle class="bg-node" cx="80" cy="380" r="4" fill="#f472b6" opacity="0.3"/>
+                            <circle class="bg-node" cx="250" cy="50" r="2" fill="#6366f1" opacity="0.3"/>
+                            <circle class="bg-node" cx="50" cy="200" r="3" fill="#a855f7" opacity="0.3"/>
+                            <circle class="bg-node" cx="450" cy="200" r="2" fill="#3b82f6" opacity="0.3"/>
+                            <circle class="bg-node" cx="250" cy="450" r="3" fill="#f472b6" opacity="0.3"/>
+                        </svg>
+                    </div>
+                    
+                    
+                    <!-- Layer 2: Connection lines (middle) -->
+                    <div class="brain-layer layer-connections">
+                        <svg viewBox="0 0 500 500">
+                            <path class="conn-line" d="M150 150 Q250 200 350 150" stroke="url(#grad1)" stroke-width="1" fill="none" opacity="0"/>
+                            
+                            <path class="conn-line" d="M150 350 Q250 300 350 350" stroke="url(#grad1)" stroke-width="1" fill="none" opacity="0"/>
+                            
+                            <path class="conn-line" d="M150 150 Q200 250 150 350" stroke="url(#grad2)" stroke-width="1" fill="none" opacity="0"/>
+                            
+                            <path class="conn-line" d="M350 150 Q300 250 350 350" stroke="url(#grad2)" stroke-width="1" fill="none" opacity="0"/>
+                            
+                            <path class="conn-line" d="M250 100 Q250 250 250 400" stroke="url(#grad3)" stroke-width="1.5" fill="none" opacity="0"/>
+                            
+                            <path class="conn-line" d="M200 200 Q250 220 300 200" stroke="url(#grad1)" stroke-width="0.5" fill="none" opacity="0"/>
+                            
+                            <path class="conn-line" d="M200 300 Q250 280 300 300" stroke="url(#grad2)" stroke-width="0.5" fill="none" opacity="0"/>
+                            
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.6" />
+                                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.6" />
+                                </linearGradient>
+                                
+                                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.6" />
+                                    <stop offset="100%" style="stop-color:#f472b6;stop-opacity:0.6" />
+                                </linearGradient>
+                                
+                                <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.8" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    
+                    <!-- Layer 3: Main brain structure (closest) -->
+                    <div class="brain-layer layer-main">
+                        <svg viewBox="0 0 500 500">
+                            <!-- Left hemisphere -->
+                            <path class="brain-hemisphere left" 
+                                d="M120 180 C120 120 160 80 220 80 C240 80 250 85 250 100 L250 400 C230 400 220 395 200 390 C140 370 100 320 100 260 C100 220 110 200 120 180Z" 
+                                fill="none" 
+                                stroke="#a855f7" 
+                                stroke-width="2"
+                                stroke-dasharray="1000"
+                                stroke-dashoffset="1000" />
+                            
+                            
+                            <!-- Right hemisphere -->
+                            <path class="brain-hemisphere right" 
+                                d="M380 180 C380 120 340 80 280 80 C260 80 250 85 250 100 L250 400 C270 400 280 395 300 390 C360 370 400 320 400 260 C400 220 390 200 380 180Z" 
+                                fill="none" 
+                                stroke="#6366f1" 
+                                stroke-width="2"
+                                stroke-dasharray="1000"
+                                stroke-dashoffset="1000" />
+                            
+                            
+                            <!-- Inner details -->
+                            <path class="brain-detail d1" d="M140 180 Q180 200 180 250" stroke="#a855f7" stroke-width="1" fill="none" opacity="0" />
+                            
+                            <path class="brain-detail d2" d="M360 180 Q320 200 320 250" stroke="#6366f1" stroke-width="1" fill="none" opacity="0" />
+                            
+                            <path class="brain-detail d3" d="M150 280 Q200 300 250 290" stroke="#f472b6" stroke-width="1" fill="none" opacity="0" />
+                            
+                            <path class="brain-detail d4" d="M350 280 Q300 300 250 290" stroke="#3b82f6" stroke-width="1" fill="none" opacity="0" />
+                            
+                            
+                            <!-- Core -->
+                            <circle class="brain-core" cx="250" cy="250" r="30" fill="url(#coreGrad)" opacity="0" />
+                            
+                            <circle class="brain-core-inner" cx="250" cy="250" r="15" fill="#fff" opacity="0" />
+                            
+                            
+                            <defs>
+                                <radialGradient id="coreGrad" cx="50%" cy="50%">
+                                    <stop offset="0%" style="stop-color:#f472b6;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0" />
+                                </radialGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    
+                    <!-- Layer 4: Active neurons (animated on scroll) -->
+                    <div class="brain-layer layer-active">
+                        <svg viewBox="0 0 500 500">
+                            <circle class="active-node n1" cx="180" cy="150" r="5" fill="#a855f7" opacity="0"/>
+                            
+                            <circle class="active-node n2" cx="320" cy="150" r="5" fill="#6366f1" opacity="0"/>
+                            
+                            <circle class="active-node n3" cx="150" cy="250" r="5" fill="#f472b6" opacity="0"/>
+                            
+                            <circle class="active-node n4" cx="350" cy="250" r="5" fill="#3b82f6" opacity="0"/>
+                            
+                            <circle class="active-node n5" cx="180" cy="350" r="5" fill="#a855f7" opacity="0"/>
+                            
+                            <circle class="active-node n6" cx="320" cy="350" r="5" fill="#6366f1" opacity="0"/>
+                            
+                            <circle class="active-node n7" cx="250" cy="180" r="4" fill="#f472b6" opacity="0"/>
+                            
+                            <circle class="active-node n8" cx="250" cy="320" r="4" fill="#3b82f6" opacity="0"/>
+                            
+                            <circle class="active-node n9" cx="220" cy="220" r="3" fill="#a855f7" opacity="0"/>
+                            
+                            <circle class="active-node n10" cx="280" cy="220" r="3" fill="#6366f1" opacity="0"/>
+                            
+                            <circle class="active-node n11" cx="220" cy="280" r="3" fill="#f472b6" opacity="0"/>
+                            
+                            <circle class="active-node n12" cx="280" cy="280" r="3" fill="#3b82f6" opacity="0"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="neural-gradient"></div>
     </section>
 
-    <!-- Services Section -->
     <section id="servicios" class="services">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Nuestros Servicios</span>
                 <h2 class="section-title">Soluciones que <span class="gradient-text">revolucionan</span></h2>
-                <p class="section-subtitle">
-                    Tecnología de punta diseñada para escalar tu negocio sin límites
-                </p>
             </div>
             
             <div class="services-grid">
@@ -142,14 +274,7 @@
                         </svg>
                     </div>
                     <h3 class="service-title">Consultoría IA</h3>
-                    <p class="service-desc">
-                        Estrategia personalizada para integrar Inteligencia Artificial en tus procesos de negocio. Análisis, roadmap e implementación.
-                    </p>
-                    <ul class="service-features">
-                        <li>Auditoría de procesos</li>
-                        <li>Roadmap de transformación digital</li>
-                        <li>Selección de herramientas IA</li>
-                    </ul>
+                    <p class="service-desc">Estrategia personalizada para integrar IA en tus procesos.</p>
                 </div>
 
                 <div class="service-card featured">
@@ -160,14 +285,7 @@
                         </svg>
                     </div>
                     <h3 class="service-title">Automatizaciones</h3>
-                    <p class="service-desc">
-                        Flujos de trabajo automatizados que eliminan tareas repetitivas. Desde simples integraciones hasta procesos empresariales complejos.
-                    </p>
-                    <ul class="service-features">
-                        <li>Workflows multi-plataforma</li>
-                        <li>Integración APIs y sistemas</li>
-                        <li>Reducción 80% tiempo manual</li>
-                    </ul>
+                    <p class="service-desc">Flujos de trabajo que eliminan tareas repetitivas.</p>
                 </div>
 
                 <div class="service-card">
@@ -179,105 +297,32 @@
                         </svg>
                     </div>
                     <h3 class="service-title">Agentes Virtuales</h3>
-                    <p class="service-desc">
-                        Empleados digitales que trabajan 24/7. Chatbots inteligentes, asistentes de voz y agentes autónomos para cualquier departamento.
-                    </p>
-                    <ul class="service-features">
-                        <li>Atención al cliente 24/7</li>
-                        <li>Agentes especializados por área</li>
-                        <li>Aprendizaje continuo</li>
-                    </ul>
+                    <p class="service-desc">Empleados digitales que trabajan 24/7.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process Section -->
-    <section id="proceso" class="process">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Cómo Trabajamos</span>
-                <h2 class="section-title">De la idea a la <span class="gradient-text">realidad</span></h2>
-            </div>
-            
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h3>Descubrimiento</h3>
-                        <p>Analizamos tus procesos actuales e identificamos oportunidades de automatización e IA.</p>
-                    </div>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h3>Diseño</h3>
-                        <p>Creamos la arquitectura de soluciones personalizada para tus objetivos de negocio.</p>
-                    </div>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h3>Implementación</h3>
-                        <p>Desarrollamos y desplegamos las soluciones con acompañamiento continuo.</p>
-                    </div>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">04</div>
-                    <div class="step-content">
-                        <h3>Evolución</h3>
-                        <p>Mejoramos constantemente basándonos en datos y feedback real.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
     <section id="contacto" class="cta">
         <div class="cta-bg"></div>
         <div class="container">
             <div class="cta-content">
                 <h2 class="cta-title">¿Listo para el <span class="gradient-text">futuro</span>?</h2>
-                <p class="cta-text">
-                    Agenda una consulta gratuita y descubre cómo la IA puede transformar tu empresa.
-                </p>
-                <a href="https://wa.me/34678685555?text=Estoy%20en%20tu%20web%20de%20Nexoflow%20y%20quiero%20más%20información" target="_blank" rel="noopener noreferrer" class="btn btn-cta">
-                    <span>Agendar Consulta Gratis</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                <a href="https://wa.me/34678685555?text=Estoy%20en%20tu%20web%20de%20Nexoflow%20y%20quiero%20más%20información" target="_blank" class="btn btn-cta">
+                    Agendar Consulta
                 </a>
-                <p class="cta-note">WhatsApp directo · Respuesta inmediata · Sin compromiso</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="#" class="logo">
-                        <span class="logo-icon">◈</span>
-                        <span class="logo-text">nexoflow</span>
-                    </a>
-                    <p class="footer-tagline">
-                        Transformando empresas con inteligencia artificial
-                    </p>
-                </div>
-                <div class="footer-links">
-                    <a href="#servicios">Servicios</a>
-                    <a href="#proceso">Proceso</a>
-                    <a href="mailto:hola@nexoflow.ai">Contacto</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 nexoflow. Todos los derechos reservados.</p>
-                <p class="footer-made">Hecho con ❤️ y mucha IA</p>
+                <a href="#" class="logo">
+                    <span class="logo-icon">◈</span>
+                    <span class="logo-text">nexoflow</span>
+                </a>
+                <p>© 2026 nexoflow</p>
             </div>
         </div>
     </footer>
