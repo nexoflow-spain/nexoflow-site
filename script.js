@@ -267,6 +267,112 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ============================
+    // Brain Assembly Animation
+    // ============================
+    const brainSection = document.querySelector('.brain-section');
+    const brainParts = document.querySelectorAll('.brain-part');
+    const brainInners = document.querySelectorAll('.brain-inner');
+    const brainCore = document.querySelector('.brain-core');
+    const brainCoreInner = document.querySelector('.brain-core-inner');
+    const dataPoints = document.querySelectorAll('.data-point');
+    const progressFill = document.querySelector('.progress-fill');
+    const progressText = document.querySelector('.progress-text');
+    
+    if (brainSection && brainParts.length > 0) {
+        let assemblyProgress = 0;
+        const totalParts = brainParts.length + brainInners.length + 1; // +1 for core
+        
+        const brainObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startBrainAssembly();
+                    brainObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        brainObserver.observe(brainSection);
+        
+        function startBrainAssembly() {
+            // Animate brain parts sequentially
+            brainParts.forEach((part, index) => {
+                setTimeout(() => {
+                    part.classList.add('assembled');
+                    updateProgress();
+                    
+                    // Add fill effect after stroke animation
+                    setTimeout(() => {
+                        part.style.fillOpacity = '0.1';
+                    }, 800);
+                }, index * 400);
+            });
+            
+            // Animate inner connections
+            setTimeout(() => {
+                brainInners.forEach((inner, index) => {
+                    setTimeout(() => {
+                        inner.classList.add('connected');
+                        updateProgress();
+                    }, index * 200);
+                });
+            }, brainParts.length * 400 + 200);
+            
+            // Activate core
+            setTimeout(() => {
+                if (brainCore) brainCore.classList.add('active');
+                if (brainCoreInner) brainCoreInner.classList.add('active');
+                updateProgress();
+            }, brainParts.length * 400 + brainInners.length * 200 + 400);
+            
+            // Activate data points
+            setTimeout(() => {
+                dataPoints.forEach((point, index) => {
+                    setTimeout(() => {
+                        point.classList.add('active');
+                    }, index * 300);
+                });
+            }, brainParts.length * 400 + 1000);
+        }
+        
+        function updateProgress() {
+            assemblyProgress++;
+            const percentage = Math.min(100, Math.round((assemblyProgress / totalParts) * 100));
+            
+            if (progressText) {
+                progressText.textContent = percentage + '%';
+            }
+            
+            if (progressFill) {
+                const circumference = 2 * Math.PI * 45; // r=45
+                const offset = circumference - (percentage / 100) * circumference;
+                progressFill.style.strokeDashoffset = offset;
+            }
+        }
+        
+        // Parallax effect for brain on scroll
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const rect = brainSection.getBoundingClientRect();
+                    const scrollProgress = 1 - (rect.bottom / (window.innerHeight + rect.height));
+                    
+                    if (scrollProgress > 0 && scrollProgress < 1) {
+                        const brainSvg = document.querySelector('.brain-svg');
+                        if (brainSvg) {
+                            const rotation = (scrollProgress - 0.5) * 10;
+                            const scale = 1 + scrollProgress * 0.05;
+                            brainSvg.style.transform = `perspective(1000px) rotateY(${rotation}deg) scale(${scale})`;
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    }
+    
+    // ============================
     // Console Easter Egg
     // ============================
     console.log(
